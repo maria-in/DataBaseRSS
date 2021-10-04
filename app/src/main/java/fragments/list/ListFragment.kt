@@ -52,6 +52,8 @@ class ListFragment : Fragment(), CarListener {
 
     override fun deleteCar(id: Int) {
         Toast.makeText(context, "Удалить!", Toast.LENGTH_SHORT).show()
+        val car = carViewModel.readAllData.value?.find { it.id == id }
+        carViewModel.deleteCar(car!!)
     }
 
 }

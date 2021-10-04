@@ -8,4 +8,8 @@ class CarRepository(private val carDao: CarDao) {
     suspend fun addCar(car: Car){
         carDao.addCar(car)
     }
+
+    suspend fun deleteCar(car: Car){
+        carDao.deleteCar(car)
+    }
 }

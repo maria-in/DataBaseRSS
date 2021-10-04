@@ -28,4 +28,10 @@ class CarViewModel(application: Application) : AndroidViewModel(application) {
             repository.addCar(car)
         }
     }
+
+    fun deleteCar(car: Car){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCar(car)
+        }
+    }
 }
