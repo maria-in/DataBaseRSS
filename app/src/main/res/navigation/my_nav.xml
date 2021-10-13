@@ -3,24 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/roomFragment">
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="fragments.list.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        android:id="@+id/roomFragment"
+        android:name="fragments.room.RoomFragment"
+        android:label="Room Table"
+        tools:layout="@layout/fragment_room" >
         <action
-            android:id="@+id/action_listFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            android:id="@+id/action_roomFragment_to_addRoomFragment"
+            app:destination="@id/addRoomFragment" />
+        <action
+            android:id="@+id/action_roomFragment_to_sqlFragment"
+            app:destination="@id/sqlFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/addFragment"
-        android:name="fragments.add.AddFragment"
-        android:label="fragment_add"
+        android:id="@+id/sqlFragment"
+        android:name="SQL.SQLFragment"
+        android:label="SQL Table"
+        tools:layout="@layout/fragment_sql" >
+        <action
+            android:id="@+id/action_sqlFragment_to_addSQLFragment"
+            app:destination="@id/addSQLFragment" />
+        <action
+            android:id="@+id/action_sqlFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addRoomFragment"
+        android:name="fragments.room.AddRoomFragment"
+        android:label="Add car"
         tools:layout="@layout/fragment_add" >
         <action
-            android:id="@+id/action_addFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            android:id="@+id/action_addRoomFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/addSQLFragment"
+        android:name="SQL.AddSQLFragment"
+        android:label="Add car"
+        tools:layout="@layout/fragment_sql_add" >
+        <action
+            android:id="@+id/action_addSQLFragment_to_sqlFragment"
+            app:destination="@id/sqlFragment" />
+    </fragment>
+
 </navigation>

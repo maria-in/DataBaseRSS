@@ -1,13 +1,12 @@
-package fragments.list
+package fragments.room
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mindorks.framework.databaserss.data.Car
 import com.mindorks.framework.databaserss.databinding.RecyclerItemCarBinding
 
-class ListAdapter(private val listener: CarListener): RecyclerView.Adapter<ListAdapter.CarViewHolder>() {
+class RoomAdapter(private val listener: CarListener): RecyclerView.Adapter<RoomAdapter.CarViewHolder>() {
 
     private var carList = emptyList<Car>()
 

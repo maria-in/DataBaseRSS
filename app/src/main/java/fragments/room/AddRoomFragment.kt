@@ -1,4 +1,4 @@
-package fragments.add
+package fragments.room
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +11,8 @@ import com.mindorks.framework.databaserss.R
 import com.mindorks.framework.databaserss.data.Car
 import com.mindorks.framework.databaserss.data.CarViewModel
 import com.mindorks.framework.databaserss.databinding.FragmentAddBinding
-import com.mindorks.framework.databaserss.databinding.FragmentListBinding
 
-class AddFragment : Fragment() {
+class AddRoomFragment : Fragment() {
     private var addFragmentBinding: FragmentAddBinding? = null
     private val binding get() = addFragmentBinding!!
 
@@ -37,7 +36,7 @@ class AddFragment : Fragment() {
         binding.saveButton.setOnClickListener{
             if(checkData()){
                 insertDataToDataBase()
-                navController.navigate(R.id.action_addFragment_to_listFragment)
+                navController.navigate(R.id.action_addRoomFragment_to_roomFragment)
             }
         }
     }
@@ -54,15 +53,15 @@ class AddFragment : Fragment() {
         var state = true
         if(binding.editMarkController.text.isNullOrEmpty()){
             state = false
-            binding.editMark.error = "Необходимо ввести марку"
+            binding.editMark.error = getString(R.string.w_car_brand)
         }
         if (binding.editModelController.text.isNullOrEmpty()){
             state = false
-            binding.editModel.error = "Необходимо ввести модель"
+            binding.editModel.error = getString(R.string.w_car_model)
         }
         if(binding.editYearController.text.isNullOrEmpty()){
             state = false
-            binding.editYear.error = "Необходимо ввести год"
+            binding.editYear.error = getString(R.string.w_car_year)
         }
         return state
     }

@@ -1,42 +1,48 @@
-package fragments.list
+package fragments.room
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mindorks.framework.databaserss.R
 import com.mindorks.framework.databaserss.data.CarViewModel
-import com.mindorks.framework.databaserss.databinding.FragmentListBinding
+import com.mindorks.framework.databaserss.databinding.FragmentRoomBinding
+import kotlin.system.exitProcess
 
-
-class ListFragment : Fragment(), CarListener {
-    private var listFragmentBinding: FragmentListBinding? = null
+class RoomFragment : Fragment(), CarListener {
+    private var listFragmentBinding: FragmentRoomBinding? = null
     private val binding get() = listFragmentBinding!!
 
     private lateinit var carViewModel: CarViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
-        listFragmentBinding = FragmentListBinding.inflate(inflater, container, false)
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    exitProcess(0)
+                }
+            }
+            )
+        navController = findNavController()
+        listFragmentBinding = FragmentRoomBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navController = findNavController()
+
         binding.carRecycler.layoutManager = LinearLayoutManager(context)
-        val adapter = ListAdapter(this)
+        val adapter = RoomAdapter(this)
         binding.carRecycler.adapter = adapter
 
 
@@ -45,15 +51,14 @@ class ListFragment : Fragment(), CarListener {
         carViewModel.readAllData.observe(viewLifecycleOwner, Observer {car ->
             adapter.setData(car)
         })
+
         binding.floatingActionButton.setOnClickListener{
-            navController.navigate(R.id.action_listFragment_to_addFragment)
+            navController.navigate(R.id.action_roomFragment_to_addRoomFragment)
         }
     }
 
     override fun deleteCar(id: Int) {
-        Toast.makeText(context, "Удалить!", Toast.LENGTH_SHORT).show()
         val car = carViewModel.readAllData.value?.find { it.id == id }
         carViewModel.deleteCar(car!!)
     }
-
 }
